@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import datetime
 mydb=mysql.connector.connect(host='localhost',user='root',password='',database='homeautomationdb')
 mycursor = mydb.cursor()
 while True:
@@ -14,11 +15,11 @@ while True:
         hummidity=input("enter hummidity:")
         moisture=input('enter moisture:')
         date=input("enter date:")
-        sql='INSERT INTO `sensorvalue`(` `temprature`, `hummidity`, `moisture`, `date`) VALUES (%s,%s,%s,%s)'
-        data=(temprature,hummidity,moisture,date)
+        sql='INSERT INTO `sensorvalue`(`temprature`, `hummidity`, `moisture`, `date`) VALUES (%s,%s,%s,now())'
+        data=(temprature,hummidity,moisture)
         mycursor.execute(sql,data)
         mydb.commit()
-        print("view employee")
+        print("sucess fully inserted")
     if(choice==2):
         print("view details")
         sql='SELECT * FROM `sensorvalue`'
@@ -28,6 +29,11 @@ while True:
             print(i)
     if(choice==3):
         print(" search details")
+        empcode=input("enter date:")
+        sql='SELECT `id`, `temprature`, `hummidity`, `moisture`, `date` FROM `sensorvalue` WHERE `date`='+date
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        print(result)
     if(choice==4):
         print("exit")
         break;
