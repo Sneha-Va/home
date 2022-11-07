@@ -21,6 +21,11 @@ while True:
         print("view employee")
     if(choice==2):
         print("view details")
+        sql='SELECT * FROM `sensorvalue`'
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        for i in result:
+            print(i)
     if(choice==3):
         print(" search details")
     if(choice==4):
